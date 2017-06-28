@@ -15,6 +15,7 @@ class Home extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleNewCity = this.handleNewCity.bind(this);
     this.handleNewCityChange = this.handleNewCityChange.bind(this);
+    this.handleDeleteCity = this.handleDeleteCity.bind(this);
   }
 
   handleLogout() {
@@ -43,7 +44,37 @@ class Home extends Component {
         if (response.ok) {
             this.componentDidMount();
         } else {
-            this.setState({error: 'Failed to add City'})
+            this.setState({error: 'Failed to add City'});
+            throw new Error('Failed to add City');
+        }
+      })
+      .catch(function(error) {
+        home.setState({error: 'Failed to add City'});
+        console.log(error);
+      });
+  }
+
+  handleDeleteCity(city) {
+    console.log('Delete city ');
+    console.log(city);
+    var myHeaders = new Headers();
+    myHeaders.append('Authorization', 'JWT ' + this.props.state.token)
+    const formData = new FormData();
+    formData.append('user', this.props.state.userid);
+    formData.append('city', city.id);
+    var home = this;
+    fetch('/cities/'+ city.id + '/', {
+      method: 'DELETE',
+      headers: myHeaders,
+      body: formData,
+      }).then(response => {
+        console.log('Received response: ');
+        console.log(response);
+        if (response.ok) {
+            this.setState({newCity: '', error: ''})
+            this.componentDidMount();
+        } else {
+            this.setState({error: 'Failed to delete City'})
         }
       })
       .catch(function(error) {
@@ -66,7 +97,7 @@ class Home extends Component {
         if (response.ok) {
             return response.json();
         } else {
-             this.setState({error: 'Failed to get list of cities'})
+            this.setState({error: 'Failed to get list of cities'})
         }
       })
       .then(function(data) {
@@ -75,16 +106,18 @@ class Home extends Component {
       })
       .catch(function(error) {
         console.log(error);
+        home.setState({error: 'Failed to get list of cities'})
       });
   }
 
   render() {
     const cities = this.state.cities;
     const listItems = cities.map((c) =>
-        <City city={c} token={this.props.state.token} />
+        <City city={c} token={this.props.state.token} deleteCity={(c) => this.handleDeleteCity(c)}/>
     );
     console.log('Home.render');
     console.log(listItems);
+    console.log(this.state);
     return (
         <div>
           <Header dividing block textAlign='center'>
@@ -105,17 +138,17 @@ class Home extends Component {
                     />
                     <Form.Button>Add</Form.Button>
                 </Form.Group>
-                {this.state.error &&
-                    <Form.Group>
-                        <Message
-                          error
-                          header='Login Failed'
-                          content={this.state.error}
-                        />
-                    </Form.Group>
-                }
               </Form>
             </Grid>
+             {this.state.error &&
+            <Grid columns="3" centered>
+            <Message
+                          error
+                          header='Error'
+                          content={this.state.error}
+                        />
+            </Grid>
+            }
         </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Form, Message, Card, Header, Grid } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Icon, Label } from 'semantic-ui-react'
 
 /*
 Class that handles Home page
@@ -51,6 +51,9 @@ class City extends Component {
         <Card.Meta>Today</Card.Meta>
         <Card.Content>Temperature<h3>{this.state.temp}&deg;C</h3></Card.Content>
         <Card.Content>Humidity<h4>{this.state.humidity} %</h4></Card.Content>
+        <Card.Content extra>
+        <Icon link name='delete' bordered label='Delete' onClick={() => this.props.deleteCity(this.props.city)}/>
+        </Card.Content>
       </Card>
       </Grid.Column>
     );
