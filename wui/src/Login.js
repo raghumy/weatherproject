@@ -44,13 +44,14 @@ class Login extends Component {
         if (response.ok) {
             return response.json();
         } else {
-             this.setState({error: 'Login Failed. Please check your Username and Password'})
+            this.setState({error: 'Please check your Username and Password'})
+            throw new Error('Login Failed');
         }
       })
       .then(function(data) {
         const t = data.token;
         console.log('Token: ' + t);
-        l.props.onUserLogin({username: l.state.username, token: t});
+        l.props.onUserLogin({username: l.state.username, token: t, userid: data.user.id});
       })
       .catch(function(error) {
         console.log(error);
@@ -78,19 +79,19 @@ class Login extends Component {
                         value={this.state.password}
                         onChange={this.handlePasswordChange}
                         />
-                    {this.state.error &&
-                        <Message
-                          error
-                          header='Error'
-                          content={this.state.error}
-                        />
-                        }
                         {fireRedirect && (
                             <Redirect to={'/'}/>
                         )}
                     <Form.Button disabled={!this.state.username || !this.state.password}
                                         onClick={() => this.handleClick()}>Login</Form.Button>
                 </Form>
+                {this.state.error &&
+                        <Message
+                          error
+                          header='Login Failed'
+                          content={this.state.error}
+                        />
+                }
             </Card.Content>
         </Card>
       </Grid.Column>

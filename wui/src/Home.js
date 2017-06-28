@@ -11,12 +11,44 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { cities: [] }
+    this.state = { cities: [], newCity: '', error: ''}
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleNewCity = this.handleNewCity.bind(this);
+    this.handleNewCityChange = this.handleNewCityChange.bind(this);
   }
 
   handleLogout() {
     this.props.onUserLogout()
+  }
+
+  handleNewCityChange(e) {
+    this.setState({newCity: e.target.value, error: ''});
+  }
+
+  handleNewCity() {
+    console.log('Add new city ' + this.state.newCity);
+    var myHeaders = new Headers();
+    myHeaders.append('Authorization', 'JWT ' + this.props.state.token)
+    const formData = new FormData();
+    formData.append('user', this.props.state.userid);
+    formData.append('city', this.state.newCity);
+    var home = this;
+    fetch('/cities/', {
+      method: 'POST',
+      headers: myHeaders,
+      body: formData,
+      }).then(response => {
+        console.log('Received response: ');
+        console.log(response);
+        if (response.ok) {
+            this.componentDidMount();
+        } else {
+            this.setState({error: 'Failed to add City'})
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   componentDidMount() {
@@ -62,6 +94,27 @@ class Home extends Component {
             {' '}<Button basic onClick={() => this.handleLogout()}>Logout</Button></Header>
             <Grid columns='2' centered>
              {listItems}
+            </Grid>
+            <Grid columns="1" centered>
+              <Form onSubmit={() => this.handleNewCity()} >
+                <Form.Group inline>
+                    <Form.Input label='New City'
+                        placeholder='Enter City Name'
+                        value={this.state.newCity}
+                        onChange={this.handleNewCityChange}
+                    />
+                    <Form.Button>Add</Form.Button>
+                </Form.Group>
+                {this.state.error &&
+                    <Form.Group>
+                        <Message
+                          error
+                          header='Login Failed'
+                          content={this.state.error}
+                        />
+                    </Form.Group>
+                }
+              </Form>
             </Grid>
         </div>
     );
