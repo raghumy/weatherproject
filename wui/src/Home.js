@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import City from './City';
-import { Button, Form, FormControl, FormGroup, Panel, Row, Col, ControlLabel, Grid, PageHeader } from 'react-bootstrap';
+import { Form, Message, Card, Header, Grid, Button } from 'semantic-ui-react'
 
 /*
 Class that handles Home page
@@ -12,6 +12,11 @@ class Home extends Component {
     super(props);
 
     this.state = { cities: [] }
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    this.props.onUserLogout()
   }
 
   componentDidMount() {
@@ -49,16 +54,16 @@ class Home extends Component {
     console.log('Home.render');
     console.log(listItems);
     return (
-     <Grid>
-        <PageHeader>Weather App</PageHeader>
         <div>
-            <p>Welcome {this.props.state.username}</p>
-
+          <Header dividing block textAlign='center'>
+            <h1>Weather Forecast</h1>
+          </Header>
+          <Header textAlign='left'>Welcome {this.props.state.username}
+            {' '}<Button basic onClick={() => this.handleLogout()}>Logout</Button></Header>
+            <Grid columns='2' centered>
+             {listItems}
+            </Grid>
         </div>
-        <FormGroup>
-         {listItems}
-         </FormGroup>
-     </Grid>
     );
   }
 }

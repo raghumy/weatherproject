@@ -28,7 +28,7 @@ class App extends Component {
     console.log(this.state);
     return (
         this.state.loggedIn ? (
-                <Home state={this.state} />
+                <Home state={this.state} onUserLogout={(h) => this.handleUserLogout(h)}/>
               ) : (
                 <Redirect to="/login"/>
               )

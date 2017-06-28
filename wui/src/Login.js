@@ -1,24 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Grid, PageHeader, Button, Form, FormControl, FormGroup, Panel, ControlLabel, HelpBlock, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Message, Card, Header, Grid } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
-
-function FieldGroup({ id, label, help, ...props }) {
-    return (
-        <Row align="middle">
-            <Col xs={1} md={4}></Col>
-            <Col sm={4}>
-                <FormGroup controlId={id}>
-                  <ControlLabel>{label}</ControlLabel>
-                  <FormControl {...props} />
-                  {help && <HelpBlock>{help}</HelpBlock>}
-                </FormGroup>
-            </Col>
-            <Col xs={1} md={4}></Col>
-         </Row>
-
-    );
-}
 
 /*
 Class that handles Login page
@@ -78,53 +61,41 @@ class Login extends Component {
     const fireRedirect = this.props.loggedIn
     console.log("Login render: " + this.props.loggedIn);
     return (
-      <Grid>
-        <PageHeader>Weather App</PageHeader>
-        <FormGroup controlId="formUsername" >
-            <FieldGroup
-                        id="formControlsUserName"
-                      type="email"
-                      label="User Name"
-                      placeholder="Enter User Name"
-                      value={this.state.username}
-                      onChange={this.handleUsernameChange}
-                    />
-            <FieldGroup
-                      id="formControlsPassword"
-                      label="Password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.handlePasswordChange}
-                    />
-            {this.state.error &&
-                <Row>
-                    <Col xs={1} md={3}></Col>
-                    <Col md={6} >
-                    <Alert bsStyle="danger">
-                        {this.state.error}
-                    </Alert>
-                    </Col>
-                    <Col xs={1} md={3}></Col>
-                </Row>
-            }
-            {fireRedirect && (
-                <Redirect to={'/'}/>
-            )}
-            <FormGroup>
-                <Row align="middle">
-                    <Col xs={1} md={5}></Col>
-                    <Col md={2} >
-                    <Button bsStyle="primary" block
-                            disabled={!this.state.username || !this.state.password}
-                            onClick={() => this.handleClick()}>
-                        Login
-                      </Button>
-                    </Col>
-                    <Col xs={1} md={5}></Col>
-                </Row>
-          </FormGroup>
-        </FormGroup>
-      </Grid>
+      <Grid columns='1' verticalAlign='middle'>
+        <Grid.Column>
+          <Header dividing block textAlign='center'><h1>Weather Forecast</h1></Header>
+          <Card centered>
+              <Card.Content>
+                  <Card.Header>User Login</Card.Header>
+                  <Form onSubmit={() => this.handleClick()}>
+                    <Form.Input label='User Name'
+                        placeholder='Enter User Name'
+                        value={this.state.username}
+                        onChange={this.handleUsernameChange}
+                        />
+                    <Form.Input label='Password'
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.handlePasswordChange}
+                        />
+                    {this.state.error &&
+                        <Message
+                          error
+                          header='Error'
+                          content={this.state.error}
+                        />
+                        }
+                        {fireRedirect && (
+                            <Redirect to={'/'}/>
+                        )}
+                    <Form.Button disabled={!this.state.username || !this.state.password}
+                                        onClick={() => this.handleClick()}>Login</Form.Button>
+                </Form>
+            </Card.Content>
+        </Card>
+      </Grid.Column>
+    </Grid>
+
     );
   }
 }
