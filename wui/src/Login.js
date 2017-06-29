@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Form, Message, Card, Header, Grid } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Label } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
 
 /*
@@ -64,11 +64,19 @@ class Login extends Component {
     return (
       <Grid columns='1' verticalAlign='middle'>
         <Grid.Column>
-          <Header dividing block textAlign='center'><h1>Weather Forecast</h1></Header>
+          <Header dividing block textAlign='center'>
+            <Label basic><h1>Weather Forecast</h1></Label>
+          </Header>
+          <Form onSubmit={() => this.handleClick()}>
           <Card centered>
               <Card.Content>
-                  <Card.Header>User Login</Card.Header>
-                  <Form onSubmit={() => this.handleClick()}>
+                  <Grid columns="1" centered padded>
+                    <h2>User Login</h2>
+                  </Grid>
+              </Card.Content>
+              <Card.Content>
+
+
                     <Form.Input label='User Name'
                         placeholder='Enter User Name'
                         value={this.state.username}
@@ -82,18 +90,25 @@ class Login extends Component {
                         {fireRedirect && (
                             <Redirect to={'/'}/>
                         )}
-                    <Form.Button disabled={!this.state.username || !this.state.password}
+               </Card.Content>
+               <Card.Content>
+                    <Grid columns="1" centered padded>
+                        <Form.Button color="blue" disabled={!this.state.username || !this.state.password}
                                         onClick={() => this.handleClick()}>Login</Form.Button>
-                </Form>
+                    </Grid>
+               </Card.Content>
+        </Card>
+        </Form>
                 {this.state.error &&
+                    <Card centered>
                         <Message
                           error
                           header='Login Failed'
                           content={this.state.error}
                         />
+                        </Card>
                 }
-            </Card.Content>
-        </Card>
+
       </Grid.Column>
     </Grid>
 

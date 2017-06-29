@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Grid, Card } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Grid, Card, Menu, Label } from 'semantic-ui-react'
 
 class CityForecast extends Component {
   constructor(props) {
@@ -49,19 +49,24 @@ class CityForecast extends Component {
     const listItems = items.map((f, i) =>
         <Grid.Column>
             <Card centered>
-                <Card.Header><h3>{weekdays[(today+i+1)%7]}</h3></Card.Header>
+                <Card.Content>
+                    <h3>{weekdays[(today+i+1)%7]}</h3>
+                </Card.Content>
                 <Card.Content>
                     <Grid columns="2" centered>
-                        <div><h3>{f.temp.max}{' '}&deg;C</h3>High</div>
-                        <div><h3>{f.temp.min}{' '}&deg;C</h3>Low</div>
+                        <Label><h3>{f.temp.max}{' '}&deg;F</h3>High</Label>
+                        <Label><h3>{f.temp.min}{' '}&deg;F</h3>Low</Label>
                     </Grid>
                 </Card.Content>
-                <Card.Content><h4>{f.weather[0].main}</h4></Card.Content>
+                <Card.Content>
+                    <h4>{f.weather[0].main}</h4>
+                    {f.weather[0].description}
+                </Card.Content>
             </Card>
         </Grid.Column>
     );
     return (
-      <Modal trigger={<Button>Forecast</Button>} closeIcon='close'>
+      <Modal trigger={<Button color="blue">Forecast</Button>} closeIcon='close'>
         <Modal.Header><h1>{this.props.city.city}{' '}Forecast</h1></Modal.Header>
         <Modal.Content>
           <Grid columns="4" centered>

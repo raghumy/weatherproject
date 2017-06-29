@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Form, Message, Card, Header, Grid, Button, Icon, Label } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Icon, Label, Menu } from 'semantic-ui-react'
 import CityForecast from './CityForecast';
 
 /*
@@ -12,7 +12,7 @@ class City extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { temp: 0, humidity: 0, desc: '' }
+        this.state = { temp: 0, humidity: 0, main: '', desc: '' }
     }
 
     componentDidMount() {
@@ -40,7 +40,8 @@ class City extends Component {
             console.log(data.weather);
             home.setState({ temp: data.weather.main.temp,
                 humidity: data.weather.main.humidity,
-                desc: data.weather.weather[0].main })
+                main: data.weather.weather[0].main,
+                desc: data.weather.weather[0].description })
           })
           .catch(function(error) {
             console.log(error);
@@ -51,18 +52,30 @@ class City extends Component {
     return (
       <Grid.Column>
       <Card centered>
-        <Card.Header><h2>{this.props.city.city}</h2></Card.Header>
-        <Card.Meta>Today</Card.Meta>
+        <Card.Header>
+            <Menu borderless>
+                <Menu.Item borderless>
+                        <h2>{this.props.city.city}</h2>
+                </Menu.Item>
+                <Menu.Menu  borderless compact position='right'>
+                    <Menu.Item onClick={() => this.props.deleteCity(this.props.city)}>
+                        <Icon name='delete' label='Delete'/>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
+        </Card.Header>
         <Card.Content>
             <Grid columns="2" centered>
-                <div><h3>{this.state.temp}{' '}&deg;C</h3>Temperature</div>
-                <div><h3>{this.state.humidity}{' '}%</h3>Humidity</div>
+                <Grid.Column><Label basic><h3>{this.state.temp}{' '}&deg;F</h3>Temperature</Label></Grid.Column>
+                <Grid.Column><Label basic><h3>{this.state.humidity}{' '}%</h3>Humidity</Label></Grid.Column>
             </Grid>
         </Card.Content>
-        <Card.Content><h4>{this.state.desc}</h4></Card.Content>
+        <Card.Content>
+            <h4>{this.state.main}</h4>
+            {this.state.desc}
+        </Card.Content>
         <Card.Content extra>
-        <CityForecast city={this.props.city} token={this.props.token} />
-        <Icon link name='delete' bordered label='Delete' onClick={() => this.props.deleteCity(this.props.city)}/>
+            <CityForecast city={this.props.city} token={this.props.token} />
         </Card.Content>
       </Card>
       </Grid.Column>

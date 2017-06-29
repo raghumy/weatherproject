@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import City from './City';
-import { Form, Message, Card, Header, Grid, Button } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Label, Menu } from 'semantic-ui-react'
 
 /*
 Class that handles Home page
@@ -121,14 +121,19 @@ class Home extends Component {
     return (
         <div>
           <Header dividing block textAlign='center'>
-            <h1>Weather Forecast</h1>
+            <Label basic><h1>Weather Forecast</h1></Label>
+            <Menu borderless>
+                <Menu.Item borderless>
+                        Welcome {this.props.state.username}
+                </Menu.Item>
+                <Menu.Menu  borderless compact position='right'>
+                    <Menu.Item onClick={() => this.handleLogout()}>
+                        Logout
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
           </Header>
-          <Header textAlign='left'>Welcome {this.props.state.username}
-            {' '}<Button basic onClick={() => this.handleLogout()}>Logout</Button></Header>
-            <Grid columns='2' centered>
-             {listItems}
-            </Grid>
-            <Grid columns="1" centered>
+          <Grid columns="1" centered padded>
               <Form onSubmit={() => this.handleNewCity()} >
                 <Form.Group inline>
                     <Form.Input label='New City'
@@ -140,15 +145,20 @@ class Home extends Component {
                 </Form.Group>
               </Form>
             </Grid>
+
              {this.state.error &&
-            <Grid columns="3" centered>
+            <Card centered>
             <Message
                           error
                           header='Error'
                           content={this.state.error}
                         />
-            </Grid>
+            </Card>
             }
+
+            <Grid columns='2' centered>
+             {listItems}
+            </Grid>
         </div>
     );
   }
