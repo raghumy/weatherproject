@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import City from './City';
-import { Form, Message, Card, Header, Grid, Button, Label, Menu } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Label, Menu, Container, Divider } from 'semantic-ui-react'
 
 /*
 Class that handles Home page
@@ -120,19 +120,15 @@ class Home extends Component {
     console.log(this.state);
     return (
         <div>
-          <Header dividing block textAlign='center'>
-            <Label basic><h1>Weather Forecast</h1></Label>
-            <Menu borderless>
-                <Menu.Item borderless>
-                        Welcome {this.props.state.username}
-                </Menu.Item>
-                <Menu.Menu  borderless compact position='right'>
-                    <Menu.Item onClick={() => this.handleLogout()}>
-                        Logout
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
-          </Header>
+          <Container textAlign='center'>
+            <Header block><h1>Weather Forecast</h1>
+            <Grid columns="2">
+                <Grid.Column textAlign='left'>Welcome {this.props.state.username}</Grid.Column>
+                <Grid.Column textAlign='right'><Button onClick={() => this.handleLogout()}>Logout</Button></Grid.Column>
+            </Grid>
+            </Header>
+          </Container>
+          <Divider hidden />
           <Grid columns="1" centered padded>
               <Form onSubmit={() => this.handleNewCity()} >
                 <Form.Group inline>
@@ -156,7 +152,7 @@ class Home extends Component {
             </Card>
             }
 
-            <Grid columns='2' centered>
+            <Grid columns='4' stackable stretched centered>
              {listItems}
             </Grid>
         </div>

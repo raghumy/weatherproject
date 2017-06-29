@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Form, Message, Card, Header, Grid, Button, Icon, Label, Menu } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Icon, Label, Menu, Container } from 'semantic-ui-react'
 import CityForecast from './CityForecast';
 
 /*
@@ -52,18 +52,17 @@ class City extends Component {
     return (
       <Grid.Column>
       <Card centered>
-        <Card.Header>
-            <Menu borderless>
-                <Menu.Item borderless>
-                        <h2>{this.props.city.city}</h2>
-                </Menu.Item>
-                <Menu.Menu  borderless compact position='right'>
-                    <Menu.Item onClick={() => this.props.deleteCity(this.props.city)}>
-                        <Icon name='delete' label='Delete'/>
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
-        </Card.Header>
+        <Card.Content>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={12} textAlign='left'><h2>{this.props.city.city}</h2></Grid.Column>
+                <Grid.Column width={3}>
+                    <Label basic icon='delete' onClick={() => this.props.deleteCity(this.props.city)} />
+
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+        </Card.Content>
         <Card.Content>
             <Grid columns="2" centered>
                 <Grid.Column><Label basic><h3>{this.state.temp}{' '}&deg;F</h3>Temperature</Label></Grid.Column>
