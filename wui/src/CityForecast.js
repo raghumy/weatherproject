@@ -54,8 +54,8 @@ class CityForecast extends Component {
                 </Card.Content>
                 <Card.Content>
                     <Grid columns="2" centered>
-                        <Label><h3>{f.temp.max}{' '}&deg;F</h3>High</Label>
-                        <Label><h3>{f.temp.min}{' '}&deg;F</h3>Low</Label>
+                        <Label><h3>{Math.round(f.temp.max)}{' '}&deg;F</h3>High</Label>
+                        <Label><h3>{Math.round(f.temp.min)}{' '}&deg;F</h3>Low</Label>
                     </Grid>
                 </Card.Content>
                 <Card.Content>

@@ -65,8 +65,8 @@ class City extends Component {
         </Card.Content>
         <Card.Content>
             <Grid columns="2" centered>
-                <Grid.Column><Label basic><h3>{this.state.temp}{' '}&deg;F</h3>Temperature</Label></Grid.Column>
-                <Grid.Column><Label basic><h3>{this.state.humidity}{' '}%</h3>Humidity</Label></Grid.Column>
+                <Grid.Column><Label basic><h3>{Math.round(this.state.temp)}{' '}&deg;F</h3>Temperature</Label></Grid.Column>
+                <Grid.Column><Label basic><h3>{Math.round(this.state.humidity)}{' '}%</h3>Humidity</Label></Grid.Column>
             </Grid>
         </Card.Content>
         <Card.Content>
