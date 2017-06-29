@@ -3,8 +3,7 @@ from weather.models import City
 from weather.serializers import CitySerializer
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
-import requests
-
+from weather.utils import GetCurrentWeather
 
 class CityViewSet(viewsets.ModelViewSet):
     """
@@ -22,11 +21,5 @@ class CityViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['get'])
     def get_weather(self, request, pk=None):
         city = self.get_object()
-        json = ""
-        if city is not None:
-            url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid=e4477fc92eef09040b204c7974cec7e1&units=imperial".format(
-                city.city)
-            resp = requests.get(url)
-            if resp.status_code == 200:
-                json = resp.json()
+        json = GetCurrentWeather(city.city)
         return Response({'city': city.city, 'weather': json})
