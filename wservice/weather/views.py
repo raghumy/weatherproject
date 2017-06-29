@@ -3,7 +3,7 @@ from weather.models import City
 from weather.serializers import CitySerializer
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
-from weather.utils import GetCurrentWeather
+from weather.utils import GetCurrentWeather, GetForecast
 
 class CityViewSet(viewsets.ModelViewSet):
     """
@@ -23,3 +23,9 @@ class CityViewSet(viewsets.ModelViewSet):
         city = self.get_object()
         json = GetCurrentWeather(city.city)
         return Response({'city': city.city, 'weather': json})
+
+    @detail_route(methods=['get'])
+    def get_forecast(self, request, pk=None):
+        city = self.get_object()
+        json = GetForecast(city.city, 5)
+        return Response({'city': city.city, 'forecast': json})

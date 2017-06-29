@@ -1,5 +1,5 @@
 from django.test import TestCase
-from weather.utils import GetCurrentWeather
+from weather.utils import GetCurrentWeather, GetForecast
 
 # Create your tests here.
 class UtilsTestCase(TestCase):
@@ -11,3 +11,10 @@ class UtilsTestCase(TestCase):
         self.assertIsNotNone(json['main'])
         self.assertIsNotNone(json['main']['temp'])
         self.assertIsNotNone(json['main']['humidity'])
+
+    def test_GetForecast(self):
+        json = GetForecast('Austin,TX', 5)
+        self.assertIsNotNone(json)
+        self.assertIsNotNone(json['city'])
+        self.assertIsNotNone(json['list'])
+        self.assertEqual(len(json['list']), 5)

@@ -12,3 +12,15 @@ def GetCurrentWeather(city):
         if resp.status_code == 200:
             json = resp.json()
     return json
+
+def GetForecast(city, days):
+    json = ""
+    if city is not None:
+        url = "http://api.openweathermap.org/data/2.5/forecast/daily?q={}&appid={}&units=imperial&cnt={}".format(
+           city, settings.MAP_API_KEY, days)
+        print('Calling {}'.format(url))
+        resp = requests.get(url)
+        print(resp)
+        if resp.status_code == 200:
+            json = resp.json()
+    return json
