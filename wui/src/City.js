@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Form, Message, Card, Header, Grid, Button, Icon, Label, Menu, Container } from 'semantic-ui-react'
+import { Card, Grid, Label } from 'semantic-ui-react'
 import CityForecast from './CityForecast';
 
 /*
@@ -22,7 +21,7 @@ class City extends Component {
         myHeaders.append('Authorization', 'JWT ' + this.props.token)
         var c = this.props.city;
         var home = this;
-        var path = '/cities/' + c.id + '/get_weather/'
+        var path = this.props.restHost + '/cities/' + c.id + '/get_weather/'
         fetch(path, {
           method: 'GET',
           headers: myHeaders,
@@ -74,7 +73,7 @@ class City extends Component {
             {this.state.desc}
         </Card.Content>
         <Card.Content extra>
-            <CityForecast city={this.props.city} token={this.props.token} />
+            <CityForecast city={this.props.city} token={this.props.token} restHost={this.props.restHost} />
         </Card.Content>
       </Card>
       </Grid.Column>

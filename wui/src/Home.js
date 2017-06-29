@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import City from './City';
-import { Form, Message, Card, Header, Grid, Button, Label, Menu, Container, Divider } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Button, Container, Divider } from 'semantic-ui-react'
 
 /*
 Class that handles Home page
@@ -34,7 +33,7 @@ class Home extends Component {
     formData.append('user', this.props.state.userid);
     formData.append('city', this.state.newCity);
     var home = this;
-    fetch('/cities/', {
+    fetch(this.props.state.restHost + '/cities/', {
       method: 'POST',
       headers: myHeaders,
       body: formData,
@@ -62,8 +61,7 @@ class Home extends Component {
     const formData = new FormData();
     formData.append('user', this.props.state.userid);
     formData.append('city', city.id);
-    var home = this;
-    fetch('/cities/'+ city.id + '/', {
+    fetch(this.props.state.restHost + '/cities/'+ city.id + '/', {
       method: 'DELETE',
       headers: myHeaders,
       body: formData,
@@ -88,7 +86,7 @@ class Home extends Component {
     var myHeaders = new Headers();
     myHeaders.append('Authorization', 'JWT ' + this.props.state.token)
     var home = this;
-    fetch('/cities/', {
+    fetch(this.props.state.restHost + '/cities/', {
       method: 'GET',
       headers: myHeaders,
       }).then(response => {
@@ -113,7 +111,7 @@ class Home extends Component {
   render() {
     const cities = this.state.cities;
     const listItems = cities.map((c) =>
-        <City city={c} token={this.props.state.token} deleteCity={(c) => this.handleDeleteCity(c)}/>
+        <City city={c} token={this.props.state.token} restHost={this.props.state.restHost}  deleteCity={(c) => this.handleDeleteCity(c)}/>
     );
     console.log('Home.render');
     console.log(listItems);

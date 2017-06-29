@@ -3,8 +3,7 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Link
+  Redirect
 } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
@@ -12,7 +11,7 @@ import Login from './Login';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false, username: '', token: '' , userid: 0};
+    this.state = { restHost: 'http://localhost:8000', loggedIn: false, username: '', token: '' , userid: 0};
     this.renderHome = this.renderHome.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
   }
@@ -37,7 +36,7 @@ class App extends Component {
   }
   renderLogin() {
     return (
-        <Login loggedIn={this.state.loggedIn} onUserLogin={(h) => this.handleUserLogin(h)}/>
+        <Login restHost={this.state.restHost} loggedIn={this.state.loggedIn} onUserLogin={(h) => this.handleUserLogin(h)}/>
     );
   }
   render() {

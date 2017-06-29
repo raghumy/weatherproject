@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Grid, Card, Menu, Label } from 'semantic-ui-react'
+import { Button, Modal, Grid, Card, Label } from 'semantic-ui-react'
 
 class CityForecast extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class CityForecast extends Component {
         myHeaders.append('Authorization', 'JWT ' + this.props.token)
         var c = this.props.city;
         var home = this;
-        var path = '/cities/' + c.id + '/get_forecast/'
+        var path = this.props.restHost + '/cities/' + c.id + '/get_forecast/'
         fetch(path, {
           method: 'GET',
           headers: myHeaders,

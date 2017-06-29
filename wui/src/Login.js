@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Form, Message, Card, Header, Grid, Label, Container, Divider } from 'semantic-ui-react'
+import { Form, Message, Card, Header, Grid, Container, Divider } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
 
 /*
@@ -35,25 +35,26 @@ class Login extends Component {
     formData.append('username', this.state.username);
     formData.append('password', this.state.password);
     var l = this;
-    fetch('/api-token-auth/', {
-      method: 'POST',
+    fetch(this.props.restHost + '/api-token-auth/', {
+       headers: {
+        'Accept': 'application/json, text/plain, */*',
+       },
+       //mode: 'no-cors',
+       method: 'POST',
       body: formData,
       }).then(response => {
-        console.log('Received response');
-        console.log(response);
         if (response.ok) {
-            return response.json();
+            response.json().then(data => {
+                console.log(data);
+                const t = data.token;
+                console.log('Token: ' + t);
+                l.props.onUserLogin({username: l.state.username, token: t, userid: data.user.id});
+            });
         } else {
             this.setState({error: 'Please check your Username and Password'})
             throw new Error('Login Failed');
         }
-      })
-      .then(function(data) {
-        const t = data.token;
-        console.log('Token: ' + t);
-        l.props.onUserLogin({username: l.state.username, token: t, userid: data.user.id});
-      })
-      .catch(function(error) {
+      }).catch(function(error) {
         console.log(error);
       });
   }
