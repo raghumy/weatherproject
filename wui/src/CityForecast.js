@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, Grid, Card, Label } from 'semantic-ui-react'
 
+/*
+Panel that displays the weather forecast
+*/
 class CityForecast extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +11,9 @@ class CityForecast extends Component {
     this.state = { forecast: [], error: ''}
   }
 
+    /*
+    When the component loads, it fetches the forecast for this city
+    */
     componentDidMount() {
         // Fetch the cities list
         console.log('Getting city forecast');

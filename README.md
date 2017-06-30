@@ -1,13 +1,29 @@
-# Application to render webservice thru REST API
+# Weather Application
 
-# Installation instructions
+This application enables the tracking of weather by city and get forecast.
+The application is in two parts:
 
-1. Install conda
-2. Create Virtual Env
-3. Source Virtual Env
-4. Install the following python packages
-pip install django
-pip install djangorestframework
-pip install markdown       # Markdown support for the browsable API.
-pip install django-filter  # Filtering support
-pip install django-cors-headers
+## Weather Service
+The weather service is a REST API that serves as a backend.
+It uses Django REST Framework.
+
+For Installation Instructions for the service see the README in the
+wservice directory.
+
+## Weather App
+The weather app is a REACT.js application served thru a 
+minimal node.js server. It uses semantic ui for css.
+
+### Installation Instructions
+
+* Install node - v6 or later
+* Make sure you are in the wui directory
+* Run `npm install` to install all dependencies
+
+### Configuration Instructions
+One piece of configuration is to add the host for the API requests in 
+src/App.js. This will be moved to a configuration parameter.
+
+### Running Instructions
+Run `npm start` to start the application
+

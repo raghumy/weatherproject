@@ -25,6 +25,11 @@ class Home extends Component {
     this.setState({newCity: e.target.value, error: ''});
   }
 
+  /*
+  Handle addition of a new city. This method will call the API
+  and if it gets a valid city, it will refresh the list of
+  cities.
+  */
   handleNewCity() {
     console.log('Add new city ' + this.state.newCity);
     var myHeaders = new Headers();
@@ -33,6 +38,8 @@ class Home extends Component {
     formData.append('user', this.props.state.userid);
     formData.append('city', this.state.newCity);
     var home = this;
+
+    // Call the API to add this city for this user
     fetch(this.props.state.restHost + '/cities/', {
       method: 'POST',
       headers: myHeaders,
@@ -41,6 +48,7 @@ class Home extends Component {
         console.log('Received response: ');
         console.log(response);
         if (response.ok) {
+            // If the API succeeded, refresh the city list
             this.componentDidMount();
         } else {
             this.setState({error: 'Failed to add City'});
@@ -53,6 +61,10 @@ class Home extends Component {
       });
   }
 
+  /*
+  Handle Deletion of a City
+  If successful, it will refresh the list of cities
+  */
   handleDeleteCity(city) {
     console.log('Delete city ');
     console.log(city);
@@ -61,6 +73,8 @@ class Home extends Component {
     const formData = new FormData();
     formData.append('user', this.props.state.userid);
     formData.append('city', city.id);
+
+    // Delete the city.
     fetch(this.props.state.restHost + '/cities/'+ city.id + '/', {
       method: 'DELETE',
       headers: myHeaders,
@@ -80,6 +94,9 @@ class Home extends Component {
       });
   }
 
+  /*
+  Function called to refresh the list of cities
+  */
   componentDidMount() {
     // Fetch the cities list
     console.log('Getting list of cities');
@@ -109,6 +126,7 @@ class Home extends Component {
   }
 
   render() {
+    // Render a City component for each city found
     const cities = this.state.cities;
     const listItems = cities.map((c) =>
         <City city={c} token={this.props.state.token} restHost={this.props.state.restHost}  deleteCity={(c) => this.handleDeleteCity(c)}/>

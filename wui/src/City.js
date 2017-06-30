@@ -4,7 +4,8 @@ import { Card, Grid, Label } from 'semantic-ui-react'
 import CityForecast from './CityForecast';
 
 /*
-Class that handles Home page
+Class that handles City
+Forecast is rendered as a popup
 */
 class City extends Component {
 
@@ -14,6 +15,9 @@ class City extends Component {
         this.state = { temp: 0, humidity: 0, main: '', desc: '' }
     }
 
+    /*
+    Get the weather details for the city
+    */
     componentDidMount() {
         // Fetch the cities list
         console.log('Getting city details');
@@ -31,7 +35,7 @@ class City extends Component {
             if (response.ok) {
                 return response.json();
             } else {
-                 this.setState({error: 'Failed to get list of cities'})
+                 this.setState({error: 'Failed to get weather data'})
             }
           })
           .then(function(data) {

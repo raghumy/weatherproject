@@ -142,8 +142,10 @@ JWT_AUTH = {
     'wservice.views.jwt_response_payload_handler',
 }
 
+# API Key to access the openweathermap API
 MAP_API_KEY = 'e4477fc92eef09040b204c7974cec7e1'
 
+# Allow everyone to access CORS
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True

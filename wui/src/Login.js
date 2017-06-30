@@ -35,6 +35,9 @@ class Login extends Component {
     formData.append('username', this.state.username);
     formData.append('password', this.state.password);
     var l = this;
+
+    // Make an API request to login and get the JWT token
+    // If CORS isn't enabled, this method will not work
     fetch(this.props.restHost + '/api-token-auth/', {
        headers: {
         'Accept': 'application/json, text/plain, */*',

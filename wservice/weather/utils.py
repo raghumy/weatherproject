@@ -1,6 +1,7 @@
 import requests
 from django.conf import settings
 
+# List of utility functions to access the openweathermap API
 def GetCurrentWeather(city):
     json = ""
     if city is not None:

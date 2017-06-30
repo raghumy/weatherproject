@@ -8,6 +8,9 @@ import {
 import Home from './Home';
 import Login from './Login';
 
+/*
+Main Application Component that maintains the global state and the user
+*/
 class App extends Component {
   constructor(props) {
     super(props);

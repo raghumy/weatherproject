@@ -20,12 +20,24 @@ class CityViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['get'])
     def get_weather(self, request, pk=None):
+        """
+        API to get the weather
+        :param request:
+        :param pk:
+        :return:
+        """
         city = self.get_object()
         json = GetCurrentWeather(city.city)
         return Response({'city': city.city, 'weather': json})
 
     @detail_route(methods=['get'])
     def get_forecast(self, request, pk=None):
+        """
+        API to get the Forecast
+        :param request:
+        :param pk:
+        :return:
+        """
         city = self.get_object()
         json = GetForecast(city.city, 5)
         return Response({'city': city.city, 'forecast': json})

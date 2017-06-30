@@ -3,6 +3,14 @@ from rest_framework import viewsets
 from wservice.serializers import UserSerializer
 
 def jwt_response_payload_handler(token, user=None, request=None):
+    """
+    This method adds the token and the user to the reponse after
+    a user logs in
+    :param token:
+    :param user:
+    :param request:
+    :return:
+    """
     return {
         'token': token,
         'user': UserSerializer(user, context={'request': request}).data
