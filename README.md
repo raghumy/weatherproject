@@ -21,8 +21,11 @@ minimal node.js server. It uses semantic ui for css.
 * Run `npm install` to install all dependencies
 
 ### Configuration Instructions
-One piece of configuration is to add the host for the API requests in 
-src/App.js. This will be moved to a configuration parameter.
+Before starting the application export the following
+environment variable
+`REACT_APP_REST_HOST=http://<public_host>:8000`
+
+This will cause react to use this URL for REST api
 
 ### Running Instructions
 Run `npm start` to start the application
