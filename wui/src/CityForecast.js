@@ -59,9 +59,13 @@ class CityForecast extends Component {
                     <h3>{weekdays[(today+i+1)%7]}</h3>
                 </Card.Content>
                 <Card.Content>
-                    <Grid columns="2" centered>
+                    <Grid columns={2} stackable centered>
+                        <Grid.Column>
                         <Label><h3>{Math.round(f.temp.max)}{' '}&deg;F</h3>High</Label>
+                        </Grid.Column>
+                        <Grid.Column>
                         <Label><h3>{Math.round(f.temp.min)}{' '}&deg;F</h3>Low</Label>
+                        </Grid.Column>
                     </Grid>
                 </Card.Content>
                 <Card.Content>

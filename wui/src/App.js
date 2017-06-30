@@ -14,7 +14,8 @@ Main Application Component that maintains the global state and the user
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { restHost: 'http://localhost:8000', loggedIn: false, username: '', token: '' , userid: 0};
+    this.state = { restHost: process.env.REACT_APP_REST_HOST, loggedIn: false, username: '', token: '' , userid: 0};
+    console.log('REST_HOST: ' + this.state.restHost);
     this.renderHome = this.renderHome.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
   }

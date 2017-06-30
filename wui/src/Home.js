@@ -145,7 +145,7 @@ class Home extends Component {
             </Header>
           </Container>
           <Divider hidden />
-          <Grid columns="1" centered padded>
+          <Grid columns="1" stackable centered padded>
               <Form onSubmit={() => this.handleNewCity()} >
                 <Form.Group inline>
                     <Form.Input label='New City'
