@@ -50,6 +50,8 @@ class APITestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         json = response.json()
         self.assertIsNotNone(json['weather'])
+        self.assertIsNotNone(json['weather']['main'])
+        self.assertIsNotNone(json['weather']['main']['temp'])
         #data.weather.main.temp
 
         response = self.client.get('/cities/{}/get_forecast/'.format(city['id']))
