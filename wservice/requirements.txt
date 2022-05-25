@@ -7,7 +7,7 @@ djangorestframework==3.6.3
 djangorestframework-jwt==1.11.0
 idna==2.5
 Markdown==2.6.8
-PyJWT==1.5.2
+PyJWT==2.4.0
 pytz==2017.2
 requests==2.18.1
 urllib3==1.21.1
